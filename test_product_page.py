@@ -36,12 +36,7 @@ class TestUserAddToBasketFromProductPage():
         page.add_to_basket_page()
         page.solve_quiz_and_get_code()
 
-        time.sleep(10)
-        # проверка наличия сообщения
-        # page.should_not_be_success_message()
-        page.is_disappeared_success_message()
-
-        # сравним
+        # сравним сообщения
         print()
         print(page.find_product_basket())
         print(NameProduct)
@@ -86,24 +81,16 @@ def test_guest_can_add_product_to_basket(browser, link):
     page.add_to_basket_page()
     page.solve_quiz_and_get_code()
 
-    # проверка наличия сообщения
-    # page.should_not_be_success_message()
-    page.is_disappeared_success_message()
 
-    # сравним
+    # сравним сообщения
     print()
     print(page.find_product_basket())
     print(NameProduct)
-
-    assert NameProduct+" has been added to your basket." == page.find_product_basket(), print("ERROR")
-    print("ОК")
+    page.comparison_name(name1=NameProduct, name2=page.find_product_basket())
 
     print(page.find_price_basket())
     print(ProductPrice)
-
-    assert "Your basket total is now "+ProductPrice == page.find_price_basket(), print("ERROR")
-    print("ОК")
-
+    page.comparison_price(price1=ProductPrice, price2=page.find_price_basket())
 def test_guest_should_see_login_link_on_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
     page = ProductPage(browser, link)
